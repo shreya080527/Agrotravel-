@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Gallery - AgroTravel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0 35px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: var(--bg-cream);
+            color: var(--primary-deep);
+            border: 1px solid var(--border-light);
+            padding: 8px 18px;
+            font-size: 13.5px;
+            font-weight: 600;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: none;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="site-header">
+    <a href="index.html" class="brand-wrapper">
+        <span class="brand-logo-icon">🌾</span>
+        <div>
+            <h1 class="brand-name">AgroTravel</h1>
+            <span class="brand-tagline">Farm Tourism &amp; Fresh Products</span>
+        </div>
+    </a>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="farm.html">Explore Farms</a>
+        <a href="gallery.html" class="active">Gallery</a>
+        <a href="booking.jsp">Book a Visit</a>
+        <a href="products.jsp">Farm Products</a>
+        <a href="cart.jsp">Cart 🛒</a>
+        <a href="feedbackForm.jsp">Feedback</a>
+        <a href="dashboard.jsp">My Account</a>
+        <a href="about.html">About</a>
+        <a href="register.jsp" class="nav-highlight">Register</a>
+    </nav>
+</header>
+
+<!-- Lab Ribbon -->
+<div class="lab-ribbon">
+    <span>🔬 <b>Interactive Lab Elements:</b> Dynamic JS Carousel Slider, Image Hover DOM Events, Responsive Media Grid</span>
+    <div>
+        <a href="farm.html">Farm Listings</a> |
+        <a href="booking.jsp">Book a Visit</a> |
+        <a href="products.jsp">Farm Store</a>
+    </div>
+</div>
+
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Visual Storytelling</span>
+            <h2 class="section-title">Explore Our Farms in Pictures</h2>
+            <p class="section-desc">Experience the life, vibrancy, and serenity of our agro-tourism partner farms through authentic visitor photographs.</p>
+        </div>
+
+        <!-- Featured Rotating Gallery Slider (Preserved ID & Handlers for Selenium/JS) -->
+        <div class="gallery">
+            <h3 style="color: var(--primary-deep); margin-bottom: 12px;">🌟 Featured Showcase (Auto-Rotating)</h3>
+            <img id="slider"
+                 src="images/farm1.jpg"
+                 alt="AgroTravel Featured Farm View"
+                 onmouseover="imageHover()"
+                 onmouseout="imageNormal()">
+            <p style="font-size: 14px; color: var(--text-muted); margin-top: 10px;">
+                <i>Hover over the image to pause &amp; highlight. Images rotate automatically every few seconds.</i>
+            </p>
+        </div>
+
+        <p style="font-size: 16px; max-width: 680px; margin: 25px auto; color: var(--text-muted); text-align: center;">
+            Discover beautiful farms, hands-on agricultural experiences, fresh harvests, and peaceful rural life across Tamil Nadu.
+        </p>
+
+        <!-- Category Filter Tabs -->
+        <div class="gallery-controls">
+            <button type="button" class="filter-btn active" onclick="filterGallery('all', this)">All Moments</button>
+            <button type="button" class="filter-btn" onclick="filterGallery('farm', this)">Farms &amp; Landscapes</button>
+            <button type="button" class="filter-btn" onclick="filterGallery('activity', this)">Farming Activities</button>
+            <button type="button" class="filter-btn" onclick="filterGallery('produce', this)">Harvest &amp; Products</button>
+            <button type="button" class="filter-btn" onclick="filterGallery('visitors', this)">Visitors &amp; Families</button>
+        </div>
+
+        <!-- Expanded Responsive Grid of Farm Photos -->
+        <div class="gallery-grid" id="fullGalleryGrid">
+            <!-- Item 1 -->
+            <div class="gallery-item" data-category="farm">
+                <img src="images/farm1.jpg" alt="Green Vegetable Terraces">
+                <div class="gallery-item-caption">Green Farm Raised Beds - Salem</div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="gallery-item" data-category="farm">
+                <img src="images/farm2.jpg" alt="Orchard Trees">
+                <div class="gallery-item-caption">Mango &amp; Sapota Orchards - Coimbatore</div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="gallery-item" data-category="farm">
+                <img src="images/farm3.jpg" alt="Dairy Pasture">
+                <div class="gallery-item-caption">Indigenous Pasture &amp; Coconut Agroforestry - Pollachi</div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="gallery-item" data-category="farm">
+                <img src="images/farm4.jpg" alt="Misty Hillside Farm">
+                <div class="gallery-item-caption">Highland Terraces &amp; Mountain View - Ooty</div>
+            </div>
+
+            <!-- Item 5: Produce -->
+            <div class="gallery-item" data-category="produce">
+                <img src="images/vegetables.jpg" alt="Fresh Harvested Vegetables">
+                <div class="gallery-item-caption">Morning Fresh Organic Vegetable Harvest</div>
+            </div>
+
+            <!-- Item 6: Produce -->
+            <div class="gallery-item" data-category="produce">
+                <img src="images/honey.jpg" alt="Pure Raw Farm Honey">
+                <div class="gallery-item-caption">Fresh Apiary Honey Bottled on the Farm</div>
+            </div>
+
+            <!-- Item 7: Produce -->
+            <div class="gallery-item" data-category="produce">
+                <img src="images/rice.jpg" alt="Heirloom Organic Rice">
+                <div class="gallery-item-caption">Traditional Indigenous Paddy Crops</div>
+            </div>
+
+            <!-- Item 8: Produce -->
+            <div class="gallery-item" data-category="produce">
+                <img src="images/fruits.jpg" alt="Tree Ripened Fruits">
+                <div class="gallery-item-caption">Tree-Ripened Orchard Guavas &amp; Oranges</div>
+            </div>
+
+            <!-- Item 9: Activity -->
+            <div class="gallery-item" data-category="activity">
+                <img src="https://media.istockphoto.com/id/2211042706/photo/tractor-fertilizing-verdant-agricultural-field-during-golden-sunset.jpg?s=612x612&w=0&k=20&c=k7IkKdWZAfc17v0WRhNPdTdFNmf16hKnnXcSH9FJt1E=" alt="Tractor Sunset Ride">
+                <div class="gallery-item-caption">Sunset Tractor Rides for Visitors</div>
+            </div>
+
+            <!-- Item 10: Visitors -->
+            <div class="gallery-item" data-category="visitors">
+                <img src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=600&q=80" alt="Family Visiting Farm">
+                <div class="gallery-item-caption">Family Vegetable Plucking Workshop</div>
+            </div>
+
+            <!-- Item 11: Activity -->
+            <div class="gallery-item" data-category="activity">
+                <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=600&q=80" alt="Soil & Planting">
+                <div class="gallery-item-caption">Hands-on Organic Planting Session</div>
+            </div>
+
+            <!-- Item 12: Visitors -->
+            <div class="gallery-item" data-category="visitors">
+                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80" alt="Farm Sunset Walk">
+                <div class="gallery-item-caption">Evening Nature Walks Along the Fields</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 45px;">
+            <a href="booking.jsp" class="btn btn-primary">Book Your Own Farm Visit 🚜</a>
+            <a href="products.jsp" class="btn btn-secondary">Shop Farm Harvest 🥬</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <span style="font-size: 26px;">🌾</span>
+                <span style="font-size: 22px; font-weight: 800; color: #ffffff;">AgroTravel</span>
+            </div>
+            <p>Capturing the essence of genuine rural hospitality and organic agriculture.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Explore</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="farm.html">Explore Farms</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="booking.jsp">Book a Visit</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Academic Labs</h4>
+            <ul>
+                <li><a href="register.jsp">Registration Page</a></li>
+                <li><a href="feedbackSummary.jsp">XSLT Review Summary</a></li>
+                <li><a href="ajax.jsp">AJAX Hub</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>AgroTravel Office</h4>
+            <p>📍 Coimbatore, Tamil Nadu, India</p>
+            <p>📞 +91 98765 43210</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 AgroTravel - Gallery Showcase. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+function filterGallery(category, btn) {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const items = document.querySelectorAll("#fullGalleryGrid .gallery-item");
+    items.forEach(item => {
+        if (category === "all" || item.getAttribute("data-category") === category) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+</script>
+
+</body>
+</html>

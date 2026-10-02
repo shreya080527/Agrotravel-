@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<feedbacks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="feedbackSchema.xsd">
+        
+    <feedback>
+                
+        <name>Dharshini</name>
+                
+        <email>dharshini@gmail.com</email>
+                
+        <product>Farm Honey</product>
+                
+        <rating>5</rating>
+                
+        <comment>Excellent quality and service.</comment>
+            
+    </feedback>
+        
+    <feedback>
+                
+        <name>Arun</name>
+                
+        <email>arun@gmail.com</email>
+                
+        <product>Organic Rice</product>
+                
+        <rating>4</rating>
+                
+        <comment>Good product and reasonable price.</comment>
+            
+    </feedback>
+    
+    <feedback>
+        <name>Tester</name>
+        <email>tester@agrotravel.com</email>
+        <product>Farm Honey</product>
+        <rating>5</rating>
+        <comment>Outstanding flavor and purity.</comment>
+    </feedback>
+</feedbacks>

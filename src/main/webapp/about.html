@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About AgroTravel - Farm Tourism &amp; Sustainable Agriculture</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary) 100%);
+            color: #ffffff;
+            padding: 70px 20px;
+            text-align: center;
+        }
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin: 40px 0;
+        }
+        .contact-box {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 35px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        @media (max-width: 850px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="site-header">
+    <a href="index.html" class="brand-wrapper">
+        <span class="brand-logo-icon">🌾</span>
+        <div>
+            <h1 class="brand-name">AgroTravel</h1>
+            <span class="brand-tagline">Farm Tourism &amp; Fresh Products</span>
+        </div>
+    </a>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="farm.html">Explore Farms</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.jsp">Book a Visit</a>
+        <a href="products.jsp">Farm Products</a>
+        <a href="cart.jsp">Cart 🛒</a>
+        <a href="feedbackForm.jsp">Feedback</a>
+        <a href="dashboard.jsp">My Account</a>
+        <a href="about.html" class="active">About</a>
+        <a href="register.jsp" class="nav-highlight">Register</a>
+    </nav>
+</header>
+
+<!-- Lab Ribbon -->
+<div class="lab-ribbon">
+    <span>🔬 <b>AgroTravel Platform Architecture:</b> Java Dynamic Web Application, Tomcat 9, MySQL, XML/XSD/XSLT/XPath, AJAX &amp; PHP</span>
+    <div>
+        <a href="index.html">Home Landing</a> |
+        <a href="farm.html">Farm Discovery</a> |
+        <a href="dashboard.jsp">My Dashboard</a>
+    </div>
+</div>
+
+<!-- Hero Banner -->
+<div class="about-hero">
+    <div class="container">
+        <span class="hero-badge">Discover Farms. Experience Nature. Shop Fresh.</span>
+        <h1 style="color: #ffffff; font-size: clamp(32px, 5vw, 48px); margin: 12px 0 16px;">
+            Cultivating Connection Between City &amp; Soil
+        </h1>
+        <p style="color: var(--amber-light); max-width: 720px; margin: 0 auto; font-size: 18px;">
+            AgroTravel was founded to revitalize sustainable rural livelihoods, protect biodiversity, and give families and conscious travelers genuine, unhurried agro-ecological experiences.
+        </p>
+    </div>
+</div>
+
+<!-- Mission Section -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Our Core Purpose</span>
+            <h2 class="section-title">The AgroTravel Mission</h2>
+            <p class="section-desc">We envision a world where rural farmers thrive through agricultural diversification and urban citizens understand where their food truly comes from.</p>
+        </div>
+
+        <div class="mission-grid">
+            <div class="card" style="padding: 28px; text-align: center;">
+                <div style="font-size: 44px; margin-bottom: 12px;">🚜</div>
+                <h3 style="font-size: 20px; margin-bottom: 8px;">Farm Tourism</h3>
+                <p style="font-size: 14px; color: var(--text-muted); margin: 0;">
+                    Inviting visitors directly onto working farms for educational estate tours, tractor rides, canal walks, and rural homestays.
+                </p>
+            </div>
+
+            <div class="card" style="padding: 28px; text-align: center;">
+                <div style="font-size: 44px; margin-bottom: 12px;">🌱</div>
+                <h3 style="font-size: 20px; margin-bottom: 8px;">Sustainable Agriculture</h3>
+                <p style="font-size: 14px; color: var(--text-muted); margin: 0;">
+                    Championing chemical-free organic farming, water conservation, permaculture raised-beds, and indigenous cow breeding.
+                </p>
+            </div>
+
+            <div class="card" style="padding: 28px; text-align: center;">
+                <div style="font-size: 44px; margin-bottom: 12px;">🧺</div>
+                <h3 style="font-size: 20px; margin-bottom: 8px;">Direct Farm Products</h3>
+                <p style="font-size: 14px; color: var(--text-muted); margin: 0;">
+                    Eliminating middlemen so that 100% pure raw honey, heirloom rice, and crisp vegetables reach consumers at honest prices.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What We Provide -->
+<section style="background-color: var(--bg-cream);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Comprehensive Offerings</span>
+            <h2 class="section-title">What AgroTravel Provides</h2>
+            <p class="section-desc">A unified platform for tourism exploration, experiential learning, and farm-fresh commerce.</p>
+        </div>
+
+        <div class="grid-4">
+            <div class="card" style="padding: 22px;">
+                <h4 style="color: var(--primary); margin: 0 0 8px;">🌾 Curated Farm Tours</h4>
+                <p style="font-size: 13.5px; color: var(--text-muted); margin: 0;">
+                    Detailed guides to verified agro-estates in Salem, Coimbatore, Pollachi, and Ooty Foothills with full amenity details.
+                </p>
+            </div>
+
+            <div class="card" style="padding: 22px;">
+                <h4 style="color: var(--primary); margin: 0 0 8px;">📅 Hassle-Free Bookings</h4>
+                <p style="font-size: 13.5px; color: var(--text-muted); margin: 0;">
+                    Seamless reservation system backed by Java Servlets and MySQL for instant registration of day visits and group retreats.
+                </p>
+            </div>
+
+            <div class="card" style="padding: 22px;">
+                <h4 style="color: var(--primary); margin: 0 0 8px;">🍯 Fresh Farm Marketplace</h4>
+                <p style="font-size: 13.5px; color: var(--text-muted); margin: 0;">
+                    Session-driven shopping cart and direct checkout for harvesting organic honey, traditional rice, fruits, and veggies.
+                </p>
+            </div>
+
+            <div class="card" style="padding: 22px;">
+                <h4 style="color: var(--primary); margin: 0 0 8px;">📜 Transparent Reviews</h4>
+                <p style="font-size: 13.5px; color: var(--text-muted); margin: 0;">
+                    Multi-tier feedback engine utilizing XML data storage, XSD schema validation, XSLT summaries, and XPath filtering.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Get in Touch</span>
+            <h2 class="section-title">Contact AgroTravel Headquarters</h2>
+            <p class="section-desc">Have inquiries about organizing a farm tour, listing your organic estate, or placing wholesale harvest orders? We are here to assist.</p>
+        </div>
+
+        <div class="contact-layout">
+            <!-- Contact Details Card -->
+            <div class="contact-box">
+                <h3 style="color: var(--primary-deep); margin-bottom: 20px;">Contact Information</h3>
+
+                <div style="display: flex; gap: 14px; margin-bottom: 20px;">
+                    <span style="font-size: 24px;">📍</span>
+                    <div>
+                        <b>Campus Headquarters:</b>
+                        <p style="margin: 2px 0 0; color: var(--text-muted); font-size: 14px;">
+                            AgroTravel Innovation Center<br>
+                            Civil Aerodrome Post, Avinashi Road<br>
+                            Coimbatore, Tamil Nadu 641014, India
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 14px; margin-bottom: 20px;">
+                    <span style="font-size: 24px;">📞</span>
+                    <div>
+                        <b>Direct Phone:</b>
+                        <p style="margin: 2px 0 0; color: var(--text-muted); font-size: 14px;">
+                            +91 98765 43210 / +91 63810 01322
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 14px; margin-bottom: 20px;">
+                    <span style="font-size: 24px;">✉️</span>
+                    <div>
+                        <b>Official Email:</b>
+                        <p style="margin: 2px 0 0; color: var(--text-muted); font-size: 14px;">
+                            contact@agrotravel.com / support@agrotravel.com
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 14px;">
+                    <span style="font-size: 24px;">⏰</span>
+                    <div>
+                        <b>Visitor Support Hours:</b>
+                        <p style="margin: 2px 0 0; color: var(--text-muted); font-size: 14px;">
+                            Monday – Saturday: 8:00 AM – 7:00 PM<br>
+                            Sunday: 9:00 AM – 2:00 PM
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Inquiry Form -->
+            <div class="contact-box">
+                <h3 style="color: var(--primary-deep); margin-bottom: 16px;">Send Us a Message</h3>
+                
+                <form id="contactInquiryForm" onsubmit="event.preventDefault(); alert('Thank you for reaching out! An AgroTravel representative will contact you shortly.'); this.reset();" style="width: 100%; max-width: 100%; margin: 0; padding: 0; box-shadow: none; border: none; background: transparent;">
+                    
+                    <div class="form-group">
+                        <label for="cName">Your Name *</label>
+                        <input type="text" id="cName" placeholder="e.g. Shreya" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cEmail">Email Address *</label>
+                        <input type="email" id="cEmail" placeholder="e.g. shreya@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cSubject">Topic of Inquiry</label>
+                        <select id="cSubject">
+                            <option value="tour">General Farm Tour Inquiry</option>
+                            <option value="booking">Farm Visit Booking Assistance</option>
+                            <option value="produce">Organic Farm Products &amp; Shipping</option>
+                            <option value="partner">Partner With AgroTravel (Farmer Enrollment)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cMsg">Message *</label>
+                        <textarea id="cMsg" rows="4" placeholder="How can we assist you with farm tourism or organic goods?" required></textarea>
+                    </div>
+
+                    <button type="submit" style="width: 100%;">
+                        Send Inquiry Message &rarr;
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <span style="font-size: 26px;">🌾</span>
+                <span style="font-size: 22px; font-weight: 800; color: #ffffff;">AgroTravel</span>
+            </div>
+            <p>"Discover Farms. Experience Nature. Shop Fresh."</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="farm.html">Explore Farms</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="booking.jsp">Book a Visit</a></li>
+                <li><a href="products.jsp">Farm Products</a></li>
+                <li><a href="dashboard.jsp">Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Academic Stack</h4>
+            <ul>
+                <li>JSP &amp; Java Servlets (MVC)</li>
+                <li>MySQL Database Connectivity</li>
+                <li>XML, XSD, XSLT &amp; XPath</li>
+                <li>HTTP Sessions &amp; Cookies</li>
+                <li>AJAX (Servlet, XML, PHP)</li>
+                <li>Selenium WebDriver Suite</li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Location</h4>
+            <p>📍 Coimbatore, Tamil Nadu, India</p>
+            <p>📞 +91 98765 43210</p>
+            <p>✉️ info@agrotravel.com</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 AgroTravel - Complete Farm Tourism Platform. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

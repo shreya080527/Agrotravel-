@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Farms - AgroTravel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .filter-bar {
+            background: var(--card-bg);
+            padding: 22px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 35px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            align-items: flex-end;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-deep);
+        }
+        .filter-group select, .filter-group input {
+            padding: 10px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            background: var(--bg-sand);
+        }
+        .farm-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .farm-modal-content {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            max-width: 780px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+        }
+        .close-modal-btn {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            font-size: 24px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+            box-shadow: none;
+        }
+        .close-modal-btn:hover {
+            color: #d32f2f;
+            transform: none;
+            box-shadow: none;
+        }
+        .facility-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary-subtle);
+            color: var(--primary-deep);
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            margin: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+    <a href="index.html" class="brand-wrapper">
+        <span class="brand-logo-icon">🌾</span>
+        <div>
+            <h1 class="brand-name">AgroTravel</h1>
+            <span class="brand-tagline">Farm Tourism &amp; Fresh Products</span>
+        </div>
+    </a>
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="farm.html" class="active">Explore Farms</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.jsp">Book a Visit</a>
+        <a href="products.jsp">Farm Products</a>
+        <a href="cart.jsp">Cart 🛒</a>
+        <a href="feedbackForm.jsp">Feedback</a>
+        <a href="dashboard.jsp">My Account</a>
+        <a href="about.html">About</a>
+        <a href="register.jsp" class="nav-highlight">Register</a>
+    </nav>
+</header>
+
+<!-- Lab Ribbon -->
+<div class="lab-ribbon">
+    <span>🔬 <b>Lab Features:</b></span>
+    <div>
+        <a href="booking.jsp">Booking System</a> |
+        <a href="products.jsp">Products DB</a> |
+        <a href="feedbackSummary.jsp">XSLT Review Summary</a> |
+        <a href="feedbackSearch.jsp">XPath Search</a> |
+        <a href="ActiveUserServlet">Active Users</a>
+    </div>
+</div>
+
+<section>
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Agro-Tourism Network</span>
+            <h2 class="section-title">Explore Verified Working Farms</h2>
+            <p class="section-desc">Filter through certified organic agro-ecological estates offering day tours, harvesting workshops, and overnight farmstays.</p>
+        </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label for="searchFarm">Search Farms / Keywords</label>
+                <input type="text" id="searchFarm" placeholder="e.g. Organic, Honey, Salem, Dairy..." oninput="filterFarms()">
+            </div>
+            <div class="filter-group">
+                <label for="filterLocation">Location</label>
+                <select id="filterLocation" onchange="filterFarms()">
+                    <option value="all">All Locations</option>
+                    <option value="Salem">Salem</option>
+                    <option value="Coimbatore">Coimbatore</option>
+                    <option value="Pollachi">Pollachi</option>
+                    <option value="Ooty">Ooty Foothills</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterType">Farm Type</label>
+                <select id="filterType" onchange="filterFarms()">
+                    <option value="all">All Farm Types</option>
+                    <option value="Organic">Organic Vegetable &amp; Fruits</option>
+                    <option value="Dairy">Dairy &amp; Village Pasture</option>
+                    <option value="Orchard">Fruit Orchards</option>
+                    <option value="Eco">Eco Farmstay</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterPrice">Max Price</label>
+                <select id="filterPrice" onchange="filterFarms()">
+                    <option value="1000">Any Price</option>
+                    <option value="500">Under ₹500</option>
+                    <option value="650">Under ₹650</option>
+                    <option value="800">Under ₹800</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Farm Cards Grid -->
+        <div class="grid-3" id="farmsGrid">
+            <!-- Farm Card 1: Green Farm -->
+            <div class="card farm-card" id="green-farm" data-name="Green Farm" data-location="Salem" data-type="Organic" data-price="450">
+                <div class="card-img-wrap">
+                    <img src="images/farm1.jpg" alt="Green Farm Salem">
+                    <span class="card-badge">Certified Organic ★ 4.9</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-location">📍 Salem, Tamil Nadu</div>
+                    <h3 class="card-title">Green Farm</h3>
+                    <p class="card-desc">Famous for zero-chemical polyhouse vegetables, indigenous heirloom seeds, and guided hands-on cultivation workshops.</p>
+                    <div class="card-tags">
+                        <span class="tag">🌱 Organic Vegetables</span>
+                        <span class="tag">🚜 Tractor Ride</span>
+                        <span class="tag">🧺 Vegetable Picking</span>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+                        <span><b>Visiting Hours:</b> 8:00 AM - 5:30 PM</span><br>
+                        <span><b>Availability:</b> Open Daily (Tues-Sun)</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">₹450 <small>/ visitor</small></div>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="openFarmModal('green')">View Details</button>
+                            <a href="booking.jsp?farm=Green+Farm" class="btn btn-primary btn-sm">Book Visit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Farm Card 2: Nature Farm -->
+            <div class="card farm-card" id="nature-farm" data-name="Nature Farm" data-location="Coimbatore" data-type="Orchard" data-price="550">
+                <div class="card-img-wrap">
+                    <img src="images/farm2.jpg" alt="Nature Farm Coimbatore">
+                    <span class="card-badge">Heritage Orchard ★ 4.8</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-location">📍 Coimbatore, Tamil Nadu</div>
+                    <h3 class="card-title">Nature Farm</h3>
+                    <p class="card-desc">Sprawling fruit orchards along the river canal offering seasonal mango, sapota, guava picking and rural stay huts.</p>
+                    <div class="card-tags">
+                        <span class="tag">🍎 Fruit Harvesting</span>
+                        <span class="tag">🏡 Village Cottages</span>
+                        <span class="tag">☕ Farm Herbal Tea</span>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+                        <span><b>Visiting Hours:</b> 9:00 AM - 6:00 PM</span><br>
+                        <span><b>Availability:</b> Weekends &amp; Holidays</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">₹550 <small>/ visitor</small></div>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="openFarmModal('nature')">View Details</button>
+                            <a href="booking.jsp?farm=Nature+Farm" class="btn btn-primary btn-sm">Book Visit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Farm Card 3: Organic Farm -->
+            <div class="card farm-card" id="organic-farm" data-name="Organic Farm" data-location="Pollachi" data-type="Dairy" data-price="600">
+                <div class="card-img-wrap">
+                    <img src="images/farm3.jpg" alt="Organic Farm Pollachi">
+                    <span class="card-badge">Dairy &amp; Apiary ★ 4.9</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-location">📍 Pollachi, Tamil Nadu</div>
+                    <h3 class="card-title">Organic Farm</h3>
+                    <p class="card-desc">Specializing in native cow dairy pastures, wild honeybee apiaries, and pure chemical-free farm-to-table dining.</p>
+                    <div class="card-tags">
+                        <span class="tag">🐄 Dairy Pasture</span>
+                        <span class="tag">🐝 Honey Extraction</span>
+                        <span class="tag">🍲 Farmer Lunch</span>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+                        <span><b>Visiting Hours:</b> 7:30 AM - 6:30 PM</span><br>
+                        <span><b>Availability:</b> Open Every Day</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">₹600 <small>/ visitor</small></div>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="openFarmModal('organic')">View Details</button>
+                            <a href="booking.jsp?farm=Organic+Farm" class="btn btn-primary btn-sm">Book Visit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Farm Card 4: Highland Agro Farm -->
+            <div class="card farm-card" id="highland-farm" data-name="Highland Agro Farm" data-location="Ooty" data-type="Eco" data-price="750">
+                <div class="card-img-wrap">
+                    <img src="images/farm4.jpg" alt="Highland Agro Farm Ooty">
+                    <span class="card-badge">Highland Eco ★ 5.0</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-location">📍 Ooty Foothills, Tamil Nadu</div>
+                    <h3 class="card-title">Highland Agro Farm</h3>
+                    <p class="card-desc">Breathtaking terrace farming against misty mountain slopes, showcasing organic tea, exotic veggies, and farm glamping.</p>
+                    <div class="card-tags">
+                        <span class="tag">🍵 Tea Plucking</span>
+                        <span class="tag">⛺ Farm Glamping</span>
+                        <span class="tag">🌄 Mountain Views</span>
+                    </div>
+                    <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 14px;">
+                        <span><b>Visiting Hours:</b> 8:30 AM - 6:00 PM</span><br>
+                        <span><b>Availability:</b> Advance Booking Only</span>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-price">₹750 <small>/ visitor</small></div>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn btn-outline btn-sm" onclick="openFarmModal('highland')">View Details</button>
+                            <a href="booking.jsp?farm=Green+Farm" class="btn btn-primary btn-sm">Book Visit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preserved Legacy Table & Elements -->
+        <div style="margin-top: 50px; background: var(--card-bg); padding: 25px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+            <h3 style="color: var(--primary-deep); margin-bottom: 12px;">Official Farm Registry Directory</h3>
+            <p style="font-size: 14px; color: var(--text-muted);">Verified working agro-estates enrolled with AgroTravel Tourism Board:</p>
+            <table border="1" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Specialty</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Green Farm</b></td>
+                        <td>Salem</td>
+                        <td>Organic Vegetables &amp; Seeds</td>
+                        <td><span class="tag" style="background:#d4edda; color:#155724;">Active / Bookable</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Nature Farm</b></td>
+                        <td>Coimbatore</td>
+                        <td>Fruit Orchards &amp; Farmstay</td>
+                        <td><span class="tag" style="background:#d4edda; color:#155724;">Active / Bookable</span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Organic Farm</b></td>
+                        <td>Pollachi</td>
+                        <td>Dairy, Apiary &amp; Spices</td>
+                        <td><span class="tag" style="background:#d4edda; color:#155724;">Active / Bookable</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <figure style="margin-top: 25px; text-align: center;">
+                <img src="https://media.istockphoto.com/id/2211042706/photo/tractor-fertilizing-verdant-agricultural-field-during-golden-sunset.jpg?s=612x612&w=0&k=20&c=k7IkKdWZAfc17v0WRhNPdTdFNmf16hKnnXcSH9FJt1E=" width="360" style="border-radius: var(--radius-sm); border: 2px solid var(--border-light);" alt="Tractor in agricultural field">
+                <figcaption style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">Traditional Field Operations at Sunset</figcaption>
+            </figure>
+            
+            <article style="text-align: center; margin-top: 14px;">
+                <p>Enjoy meaningful farming activities, support local farmers, and experience rural authenticity.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Farm Detail Modal -->
+<div id="farmModal" class="farm-detail-modal" onclick="closeFarmModalOnOutside(event)">
+    <div class="farm-modal-content" id="modalContent">
+        <button class="close-modal-btn" onclick="closeFarmModal()">&times;</button>
+        <div id="modalInnerData"></div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <span style="font-size: 26px;">🌾</span>
+                <span style="font-size: 22px; font-weight: 800; color: #ffffff;">AgroTravel</span>
+            </div>
+            <p>Empowering eco-conscious travelers to experience genuine rural agriculture while boosting farm livelihoods.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="farm.html">Explore Farms</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="booking.jsp">Book a Visit</a></li>
+                <li><a href="products.jsp">Farm Products</a></li>
+                <li><a href="dashboard.jsp">User Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Lab Modules</h4>
+            <ul>
+                <li><a href="register.jsp">AJAX &amp; PHP Registration</a></li>
+                <li><a href="VisitServlet">Cookie Visit Counter</a></li>
+                <li><a href="ActiveUserServlet">Active Users Monitor</a></li>
+                <li><a href="feedbackSummary.jsp">XSLT Review Summary</a></li>
+                <li><a href="feedbackSearch.jsp">XPath Filter</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact Farm Support</h4>
+            <p>📍 Coimbatore, Tamil Nadu, India</p>
+            <p>📞 Phone: +91 98765 43210</p>
+            <p>✉️ Email: tours@agrotravel.com</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 AgroTravel - Farm Discovery &amp; Booking. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+const farmDetailsData = {
+    green: {
+        name: "Green Farm",
+        location: "Salem, Tamil Nadu",
+        type: "Certified Organic Vegetable & Seed Plantation",
+        price: "₹450 / person",
+        hours: "8:00 AM – 5:30 PM (Tues – Sun)",
+        image: "images/farm1.jpg",
+        description: "Green Farm is an award-winning agro-ecological estate dedicated to natural permaculture and zero-budget natural farming. Visitors receive guided walks through raised-bed organic cultivation, learn traditional bio-composting techniques, and pluck seasonal heirloom vegetables to take home.",
+        activities: ["Guided Farm Walk", "Organic Soil Composting Workshop", "Vegetable Harvesting", "Tractor Field Ride", "Seed Preservation Demo"],
+        facilities: ["Fresh Well Water", "Farm Dining Shed", "Clean Washrooms", "Free Vehicle Parking", "Organic Produce Counter"],
+        reviews: [
+            { user: "Dharshini S.", rating: "★★★★★", comment: "The field trip was nice, we learned so much about chemical-free farming." },
+            { user: "Kavitha R.", rating: "★★★★★", comment: "Delicious farm lunch prepared with vegetables picked right in front of us!" }
+        ],
+        bookingUrl: "booking.jsp?farm=Green+Farm"
+    },
+    nature: {
+        name: "Nature Farm",
+        location: "Coimbatore, Tamil Nadu",
+        type: "River Canal Fruit Orchard & Farmstay",
+        price: "₹550 / person",
+        hours: "9:00 AM – 6:00 PM (Weekends & Holidays)",
+        image: "images/farm2.jpg",
+        description: "Nature Farm offers lush fruit groves along tranquil irrigation canals. Featuring over 40 varieties of native fruit trees including Salem mangoes, sweet sapota, and wild amla, this estate is ideal for family outings, photography, and restful weekend stays in traditional tiled roof cottages.",
+        activities: ["Fruit Plucking & Tasting", "Bullock Cart & Tractor Ride", "Canal Walk", "Herbal Nursery Tour", "Bird Watching"],
+        facilities: ["Traditional Thatch Cabanas", "Children Play Area", "Changing Rooms", "Cafeteria", "First Aid Kit"],
+        reviews: [
+            { user: "Shreya A.", rating: "★★★★★", comment: "The visit was interesting, peaceful setting and fresh fruit juice on arrival." },
+            { user: "Vignesh P.", rating: "★★★★☆", comment: "Great tractor tour through the mango orchard, very knowledgeable staff." }
+        ],
+        bookingUrl: "booking.jsp?farm=Nature+Farm"
+    },
+    organic: {
+        name: "Organic Farm",
+        location: "Pollachi, Tamil Nadu",
+        type: "Indigenous Dairy, Apiary & Coconut Agroforestry",
+        price: "₹600 / person",
+        hours: "7:30 AM – 6:30 PM (Open Daily)",
+        image: "images/farm3.jpg",
+        description: "Nestled in the coconut country of Pollachi, Organic Farm integrates native Kangayam cow pastures with inter-cropped wild bee apiaries, black pepper, and nutmeg groves. Experience rural animal care, honey extraction, and traditional Tamil country meals.",
+        activities: ["Indigenous Cow Milking Demo", "Live Apiary & Honey Extraction", "Coconut Tree Climbing Demo", "Clay Pottery Making"],
+        facilities: ["Country Kitchen Dining", "Homestay Rooms", "Hammock Grove", "Pure Raw Honey Sales", "Parking"],
+        reviews: [
+            { user: "Arun K.", rating: "★★★★★", comment: "Purest honey I've ever tasted, and our kids loved interacting with the cows!" }
+        ],
+        bookingUrl: "booking.jsp?farm=Organic+Farm"
+    },
+    highland: {
+        name: "Highland Agro Farm",
+        location: "Ooty Foothills, Tamil Nadu",
+        type: "Terrace Farming & Highland Eco Glamping",
+        price: "₹750 / person",
+        hours: "8:30 AM – 6:00 PM (Advance Booking)",
+        image: "images/farm4.jpg",
+        description: "Located on misty hillside slopes, Highland Agro Farm showcases sustainable terrace agriculture, organic tea bushes, European herbs, and berries. Enjoy cool mountain air, panoramic sunset viewpoints, and cozy luxury glamping tents.",
+        activities: ["Organic Tea Leaf Plucking", "Exotic Herb Identification", "Sunset Bonfire Walk", "Glamping Stay"],
+        facilities: ["Luxury Eco Tents", "Dining Hall", "Hot Showers", "Wifi in Common Area", "Scenic Deck"],
+        reviews: [
+            { user: "Maheswari T.", rating: "★★★★★", comment: "Breathtaking views and top-notch hospitality. An unforgettable mountain retreat." }
+        ],
+        bookingUrl: "booking.jsp?farm=Green+Farm"
+    }
+};
+
+function openFarmModal(farmKey) {
+    const data = farmDetailsData[farmKey];
+    if (!data) return;
+    
+    let actHtml = data.activities.map(a => `<span class="facility-badge">✓ ${a}</span>`).join('');
+    let facHtml = data.facilities.map(f => `<span class="facility-badge" style="background:#fceddc; color:#854117;">✦ ${f}</span>`).join('');
+    let revHtml = data.reviews.map(r => `
+        <div style="background:var(--bg-sand); padding:12px; border-radius:8px; margin-top:8px;">
+            <div style="color:var(--amber); font-size:14px;">${r.rating} <b>${r.user}</b></div>
+            <p style="margin:4px 0 0; font-size:13.5px; font-style:italic;">"${r.comment}"</p>
+        </div>
+    `).join('');
+    
+    document.getElementById("modalInnerData").innerHTML = `
+        <div style="display:flex; flex-wrap:wrap; gap:20px; margin-bottom:18px;">
+            <img src="${data.image}" style="width:100%; max-height:280px; object-fit:cover; border-radius:var(--radius-sm);" alt="${data.name}">
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
+            <div>
+                <h2 style="margin:0; color:var(--primary-deep);">${data.name}</h2>
+                <div style="color:var(--earth-light); font-weight:600; font-size:14px;">📍 ${data.location} | ${data.type}</div>
+            </div>
+            <div style="font-size:22px; font-weight:800; color:var(--primary);">${data.price}</div>
+        </div>
+        <p style="margin:16px 0; font-size:14.5px; line-height:1.6; color:var(--text-main);">${data.description}</p>
+        <div style="margin-bottom:14px;">
+            <h4 style="margin:0 0 6px; font-size:15px; color:var(--primary);">🎯 Key Activities &amp; Workshops:</h4>
+            <div>${actHtml}</div>
+        </div>
+        <div style="margin-bottom:14px;">
+            <h4 style="margin:0 0 6px; font-size:15px; color:var(--primary);">🏡 Amenities &amp; Facilities:</h4>
+            <div>${facHtml}</div>
+        </div>
+        <div style="margin-bottom:14px; font-size:13.5px;">
+            <b>⏰ Visiting Hours:</b> ${data.hours}
+        </div>
+        <div style="margin-bottom:20px;">
+            <h4 style="margin:0 0 6px; font-size:15px; color:var(--primary);">💬 Visitor Reviews:</h4>
+            ${revHtml}
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:12px; border-top:1px solid var(--border-light); padding-top:16px;">
+            <button type="button" class="btn btn-outline" onclick="closeFarmModal()">Close</button>
+            <a href="${data.bookingUrl}" class="btn btn-primary">Book This Farm Now 📅</a>
+        </div>
+    `;
+    
+    document.getElementById("farmModal").style.display = "flex";
+}
+
+function closeFarmModal() {
+    document.getElementById("farmModal").style.display = "none";
+}
+
+function closeFarmModalOnOutside(e) {
+    if (e.target.id === "farmModal") {
+        closeFarmModal();
+    }
+}
+
+function filterFarms() {
+    const q = document.getElementById("searchFarm").value.toLowerCase();
+    const loc = document.getElementById("filterLocation").value;
+    const type = document.getElementById("filterType").value;
+    const maxP = parseFloat(document.getElementById("filterPrice").value);
+    
+    const cards = document.querySelectorAll(".farm-card");
+    cards.forEach(card => {
+        const name = card.getAttribute("data-name").toLowerCase();
+        const cardLoc = card.getAttribute("data-location");
+        const cardType = card.getAttribute("data-type");
+        const cardPrice = parseFloat(card.getAttribute("data-price"));
+        const desc = card.querySelector(".card-desc").innerText.toLowerCase();
+        
+        const matchQ = !q || name.includes(q) || desc.includes(q) || cardLoc.toLowerCase().includes(q);
+        const matchLoc = (loc === "all") || (cardLoc === loc);
+        const matchType = (type === "all") || (cardType === type);
+        const matchPrice = cardPrice <= maxP;
+        
+        if (matchQ && matchLoc && matchType && matchPrice) {
+            card.style.display = "flex";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
